@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOOTVERSE</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #080b12;
+  color: white;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 500px;
+  margin: auto;
+  padding: 25px 18px;
+  min-height: 100vh;
+}
+
+.logo {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 900;
+  margin-top: 40px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #8d96a6;
+  margin-top: 8px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #111722;
+  border: 1px solid #222b3a;
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #8d96a6;
+  margin-bottom: 18px;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 13px;
+  background: #1769ff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+.secondary {
+  background: #202938;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0 15px;
+  border-radius: 12px;
+  border: 1px solid #303a4b;
+  background: #0c111a;
+  color: white;
+  font-size: 16px;
+}
+
+.back {
+  background: #202938;
+  margin-top: 10px;
+}
+
+.code {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 5px;
+  margin: 20px 0;
+}
+
+.bottom {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  color: #8d96a6;
+}
+
+.bottom div {
+  text-align: center;
+  font-size: 13px;
+}
+
+.icon {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- STARTSEITE -->
+  <div id="home" class="screen active">
+
+    <div class="logo">FOOTVERSE</div>
+
+    <div class="subtitle">
+      Build your team. Rule the game.
+    </div>
+
+    <div class="card">
+      <h2>⚽ Spiel erstellen</h2>
+      <p>Erstelle dein eigenes Football-Manager-Spiel.</p>
+      <button onclick="showCreate()">Spiel erstellen</button>
+    </div>
+
+    <div class="card">
+      <h2>🎮 Spiel beitreten</h2>
+      <p>Trete einem Spiel mit einem Code bei.</p>
+      <button class="secondary" onclick="showJoin()">Spiel beitreten</button>
+    </div>
+
+    <div class="bottom">
+      <div>
+        <div class="icon">🏆</div>
+        Leaderboard
+      </div>
+
+      <div>
+        <div class="icon">👥</div>
+        Freunde
+      </div>
+
+      <div>
+        <div class="icon">⚙️</div>
+        Einstellungen
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- SPIEL ERSTELLEN -->
+  <div id="create" class="screen">
+
+    <div class="logo">FOOTVERSE</div>
+
+    <div class="card">
+      <h2>⚽ Spiel erstellen</h2>
+
+      <p>Wie heißt dein Spiel?</p>
+
+      <input id="gameName" placeholder="z.B. Champions League">
+
+      <button onclick="createGame()">
+        Spiel erstellen
+      </button>
+
+      <button class="back" onclick="goHome()">
+        Zurück
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- SPIEL ERSTELLT -->
+  <div id="created" class="screen">
+
+    <div class="logo">FOOTVERSE</div>
+
+    <div class="card">
+
+      <h2>🎉 Spiel erstellt!</h2>
+
+      <p>
+        Teile diesen Code mit deinen Freunden:
+      </p>
+
+      <div class="code" id="gameCode">
+        000000
+      </div>
+
+      <button onclick="copyCode()">
+        Code kopieren
+      </button>
+
+      <button class="back" onclick="goHome()">
+        Zur Startseite
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- SPIEL BEITRETEN -->
+  <div id="join" class="screen">
+
+    <div class="logo">FOOTVERSE</div>
+
+    <div class="card">
+
+      <h2>🎮 Spiel beitreten</h2>
+
+      <p>
+        Gib den Spielcode ein.
+      </p>
+
+      <input id="joinCode" placeholder="6-stelliger Code">
+
+      <button onclick="joinGame()">
+        Beitreten
+      </button>
+
+      <button class="back" onclick="goHome()">
+        Zurück
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- BEITRETEN ERFOLGREICH -->
+  <div id="joined" class="screen">
+
+    <div class="logo">FOOTVERSE</div>
+
+    <div class="card">
+
+      <h2>✅ Du bist dabei!</h2>
+
+      <p id="joinedText"></p>
+
+      <button onclick="goHome()">
+        Zur Startseite
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function showScreen(id) {
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+
+function showCreate() {
+  showScreen("create");
+}
+
+
+function showJoin() {
+  showScreen("join");
+}
+
+
+function goHome() {
+  showScreen("home");
+}
+
+
+function createGame() {
+
+  let name = document.getElementById("gameName").value;
+
+  if (name.trim() === "") {
+    alert("Bitte gib einen Namen für dein Spiel ein.");
+    return;
+  }
+
+  let code = Math.floor(100000 + Math.random() * 900000);
+
+  document.getElementById("gameCode").innerText = code;
+
+  showScreen("created");
+}
+
+
+function copyCode() {
+
+  let code = document.getElementById("gameCode").innerText;
+
+  navigator.clipboard.writeText(code);
+
+  alert("Spielcode kopiert!");
+}
+
+
+function joinGame() {
+
+  let code = document.getElementById("joinCode").value;
+
+  if (code.length !== 6) {
+    alert("Bitte gib einen 6-stelligen Spielcode ein.");
+    return;
+  }
+
+  document.getElementById("joinedText").innerText =
+    "Du bist dem Spiel mit dem Code " + code + " beigetreten.";
+
+  showScreen("joined");
+}
+
+</script>
+
+</body>
+</html>
